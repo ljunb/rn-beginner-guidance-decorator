@@ -35,11 +35,11 @@ export default injectGuidance(BeginnerGuidanceView, {displayName: 'HomePage'})(H
 ## 涉及参数说明
 Name             | Default     | Description
 ---------------- | ----------- | -----------
-displayName    |  | 表示当前注入后的高阶组件名称，必须唯一，必传
+displayName    |  | 表示当前注入后的高阶组件名称，必须唯一，必传
 dismissEnabled | true | 表示是否支持点击屏幕任意位置关闭引导组件
 
 
 ## 原则
 > * 组件支持 `Decorator` 语法调用，前提是已经配置了相应的语法支持
-> * 调用 `injectGuidance(GuidanceComponent, {displayName})(TargetComponent)` 注入时，`displayName` 是必传的，将用于生成高阶组件的名称和本地缓存标识位
-> * 在封装新手引导组件时，按需暴露 `onDismiss` ，具体的规则是：如果 `dismissEnabled` 设置为 `true` ，则可以不用添加该回调函数；否则必须添加
+> * 调用 `injectGuidance(GuidanceComponent, {displayName})(TargetComponent)` 注入时，`displayName` 是必传的，将用于生成高阶组件的名称和本地缓存标识位
+> * 在封装新手引导组件时，按需暴露 `onDismiss` ，具体的规则是：如果 `dismissEnabled` 设置为 `true` ，则可以不用添加该回调函数；否则必须添加
