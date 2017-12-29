@@ -42,4 +42,4 @@ dismissEnabled | true | 表示是否支持点击屏幕任意位置关闭引导�
 ## 原则
 > * 组件支持 `Decorator` 语法调用，前提是已经配置了相应的语法支持
 > * 调用 `injectGuidance(GuidanceComponent, {displayName})(TargetComponent)` 注入时，`displayName` 是必传的，将用于生成高阶组件的名称和本地缓存标识位
-> * 显示新手引导组件后，默认行为是点击屏幕任意位置隐藏，前提是没有触摸到其他可捕获点击事件的 `Touchable*` 组件。如果需求不是点击屏幕任意位置，而是点击某个按钮隐藏引导组件，则需要在注入的时候，`dismissEnabled` 设置为 `false` ，同时在相应的点击事件中直接调用 `this.props.onDismiss()` 即可
+> * 显示新手引导组件后，默认行为是点击屏幕任意位置隐藏，前提是没有触摸到其他可捕获点击事件的 `Touchable*` 组件。如果需求不是点击屏幕任意位置，而是点击某个按钮隐藏引导组件，则需要在注入的时候，`dismissEnabled` 设置为 `false` ，同时新手引导组件需暴露名为 `onDismiss` 的 `props` ，并在相应的点击事件中直接调用 `this.props.onDismiss()` 即可。可参照 [这里的示例](https://github.com/ljunb/RNProjectPlayground/blob/009cacaf285d5eaf1dd9aa44e45d007ef00f2dba/src/pages/demos/NewerGuideDialog.js#L32)
