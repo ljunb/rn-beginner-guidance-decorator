@@ -19,9 +19,8 @@ you should invoke it in the way such as like "injectGuidance(GuidanceComponent, 
 const injectGuidance = (GuidanceComponent, {displayName, dismissEnabled = true}) => WrapperComponent => class extends Component {
   static displayName = `BeginnerGuidanceDecorator_${displayName}`;
 
-  state = {
-    showGuide: false,
-  };
+  state = { showGuidance: false };
+  guidanceCacheKey = `BeginnerGuidanceDecorator_${displayName}`;
 
   componentWillMount() {
     if (displayName === undefined) throw new Error(errorMsg);
@@ -30,10 +29,10 @@ const injectGuidance = (GuidanceComponent, {displayName, dismissEnabled = true})
 
   setupGuidance = async () => {
     try {
-      const result = await AsyncStorage.getItem(`BeginnerGuidanceDecorator_${displayName}`);
+      const result = await AsyncStorage.getItem(this.guidanceCacheKey);
       if (!result) {
-        this.setState({showGuide: true});
-        AsyncStorage.setItem(`BeginnerGuidanceDecorator_${displayName}`, JSON.stringify({}));
+        this.setState({showGuidance: true});
+        AsyncStorage.setItem(this.guidanceCacheKey, JSON.stringify({}));
       }
     } catch (e) {
       console.log(`[BeginnerGuidanceDecorator_${displayName}] setup guidance error: ${e}`);
@@ -41,17 +40,17 @@ const injectGuidance = (GuidanceComponent, {displayName, dismissEnabled = true})
   };
 
   handleDismiss = () => {
-    this.setState({showGuide: false});
-    AsyncStorage.setItem(`BeginnerGuidanceDecorator_${displayName}`, JSON.stringify({}));
+    this.setState({showGuidance: false});
+    AsyncStorage.setItem(this.guidanceCacheKey, JSON.stringify({}));
   };
 
   render() {
-    const { showGuide } = this.state;
+    const { showGuidance } = this.state;
 
     return (
       <View style={{flex: 1}}>
         <WrapperComponent {...this.props} />
-        {showGuide &&
+        {showGuidance &&
           <TouchableOpacity
             activeOpacity={1}
             disabled={!dismissEnabled}

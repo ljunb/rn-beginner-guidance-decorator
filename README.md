@@ -1,4 +1,8 @@
 ## rn-beginner-guidance-decorator
+
+[![npm](https://img.shields.io/npm/v/rn-beginner-guidance-decorator.svg)](https://www.npmjs.com/package/rn-beginner-guidance-decorator)
+[![npm](https://img.shields.io/npm/l/rn-beginner-guidance-decorator.svg)](https://github.com/ljunb/rn-beginner-guidance-decorator/blob/master/LICENSE)
+
 这是一个可以更快速、简便地为 React Naitve App 添加新手引导的轻便 `Decorator` 。App 中可能有多个页面需要添加新手引导，且实现逻辑大同小异，如果每个页面都实现一遍，代码冗余，耦合度也高。使用该组件，只要在目标页面，按需注入需要的新手引导组件即可。
 
 ## 安装
