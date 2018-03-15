@@ -22,9 +22,13 @@ const injectGuidance = (GuidanceComponent, {displayName, dismissEnabled = true})
   state = { showGuidance: false };
   guidanceCacheKey = `BeginnerGuidanceDecorator_${displayName}`;
 
-  componentWillMount() {
-    if (displayName === undefined) throw new Error(errorMsg);
+  componentDidMount() {
+    this.assert(!displayName, errorMsg);
     this.setupGuidance();
+  }
+
+  assert = (needAssert, message) => {
+    if (needAssert) throw new Error(message);
   }
 
   setupGuidance = async () => {
