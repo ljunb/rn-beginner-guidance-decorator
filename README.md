@@ -44,7 +44,7 @@ displayName    |  | 表示当前注入后的高阶组件名称，必须唯一，
 dismissEnabled | true | 表示是否支持点击屏幕任意位置关闭引导组件
 
 ## 引导页组件的定义
-参数 `dismissEnabled` 适用于不点击屏幕任一位置隐藏引导页的情况。如引导页存在多步骤操作，需要根据时机自定义隐藏，则引导页组件应向外暴露 `onDismiss` 的 `props`。示例：
+参数 `dismissEnabled` 的默认值为 `true`，适用于不点击屏幕任一位置隐藏引导页的情况。如引导页存在多步骤操作，需要根据时机自定义隐藏，则引导页组件应向外暴露 `onDismiss` 的 `props`。示例：
 
 ```
 export default class NewerGuideDialog extends Component {
