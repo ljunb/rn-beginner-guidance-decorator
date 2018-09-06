@@ -4,7 +4,6 @@
 [![npm](https://img.shields.io/npm/dm/rn-beginner-guidance-decorator.svg)](https://www.npmjs.com/package/rn-beginner-guidance-decorator)
 [![npm](https://img.shields.io/npm/dt/rn-beginner-guidance-decorator.svg)](https://www.npmjs.com/package/rn-beginner-guidance-decorator)
 [![npm](https://img.shields.io/npm/l/rn-beginner-guidance-decorator.svg)](https://github.com/ljunb/rn-beginner-guidance-decorator/blob/master/LICENSE)
-
 这是一个可以更快速、简便地为 React Naitve App 添加新手引导的轻便 `Decorator` 。App 中可能有多个页面需要添加新手引导，且实现逻辑大同小异，如果每个页面都实现一遍，代码冗余，耦合度也高。使用该组件，只要在目标页面，按需注入需要的新手引导组件即可。
 
 ## 安装
@@ -44,8 +43,47 @@ Name             | Default     | Description
 displayName    |  | 表示当前注入后的高阶组件名称，必须唯一，必传
 dismissEnabled | true | 表示是否支持点击屏幕任意位置关闭引导组件
 
+## 引导页组件的定义
+参数 `dismissEnabled` 适用于不点击屏幕任一位置隐藏引导页的情况。如引导页存在多步骤操作，需要根据时机自定义隐藏，则引导页组件应向外暴露 `onDismiss` 的 `props`。示例：
+
+```
+export default class NewerGuideDialog extends Component {
+  static propTypes = {
+    onDismiss: PropTypes.func, // 暴露该 props
+  };
+
+  /**
+   * 按需调用 this.props.onDismiss() 来隐藏引导页
+   **/
+  handleDismiss = () => {
+    const { onDismiss } = this.props;
+    onDismiss && onDismiss();
+  };
+
+  render() {
+    return (
+      <View style={styles.root}>
+        <Text style={styles.text} onPress={this.handleDismiss}>Dismiss</Text>
+      </View>
+    );
+  }
+}
+```
+
+同时在引用组件时，`dismissEnabled` 设置为 `false`。如：
+
+```
+import { injectGuidance } from 'rn-beginner-guidance-decorator';
+import NewerGuideDialog from './components/NewerGuideDialog';
+
+@injectGuidance(NewerGuideDialog, {displayName: 'HomePage', dismissEnabled: false})
+export default class HomePage extends Component {
+  ...
+}
+
+```
 
 ## 原则
+
 * 组件支持 `Decorator` 语法调用，前提是已经配置了相应的语法支持
 * 调用 `injectGuidance(GuidanceComponent, {displayName})(TargetComponent)` 注入时，`displayName` 是必传的，将用于生成高阶组件的名称和本地缓存标识位
-* 显示新手引导组件后，默认行为是点击屏幕任意位置隐藏，前提是没有触摸到其他可捕获点击事件的 `Touchable*` 组件。如果需求不是点击屏幕任意位置，而是点击某个按钮隐藏引导组件，则需要在注入的时候，`dismissEnabled` 设置为 `false` ，同时新手引导组件需暴露名为 `onDismiss` 的 `props` ，并在相应的点击事件中直接调用 `this.props.onDismiss()` 即可。可参照 [这里的示例](https://github.com/ljunb/RNProjectPlayground/blob/6c7907e6c54658d0f2e26f1880c8fe0fb6f3753b/src/pages/demos/guidance/NewerGuideDialog.js#L32)
