@@ -10,17 +10,17 @@
 ## 安装
 
 使用 `npm`：
-```
+```shell
 npm install rn-beginner-guidance-decorator --save
 ```
 用 `yarn`：
-```
+```shell
 yarn add rn-beginner-guidance-decorator
 ```
 
 ## 使用示例
 
-```
+```javascript
 import { injectGuidance } from 'rn-beginner-guidance-decorator';
 import BeginnerGuidanceView from './components/BeginnerGuidanceView';
 
@@ -47,7 +47,7 @@ dismissEnabled | true | 表示是否支持点击屏幕任意位置关闭引导�
 ## 引导页组件的定义
 参数 `dismissEnabled` 的默认值为 `true`，适用于不点击屏幕任一位置隐藏引导页的情况。如引导页存在多步骤操作，需要根据时机自定义隐藏，则引导页组件应向外暴露 `onDismiss` 的 `props`。示例：
 
-```
+```javascript
 export default class NewerGuideDialog extends Component {
   static propTypes = {
     onDismiss: PropTypes.func, // 暴露该 props
@@ -73,7 +73,7 @@ export default class NewerGuideDialog extends Component {
 
 同时在引用组件时，`dismissEnabled` 设置为 `false`。如：
 
-```
+```javascript
 import { injectGuidance } from 'rn-beginner-guidance-decorator';
 import NewerGuideDialog from './components/NewerGuideDialog';
 
