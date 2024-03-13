@@ -1,14 +1,15 @@
 {
   "name": "rn-beginner-guidance-decorator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ljunb/rn-beginner-guidance-decorator.git"
+  },
   "author": "cookiej",
-  "license": "MIT",
-  "dependencies": {
-    "rn-countdown": "^1.0.0"
-  }
+  "license": "MIT"
 }
